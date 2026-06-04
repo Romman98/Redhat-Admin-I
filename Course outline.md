@@ -15,18 +15,18 @@ This repo will contain all the material needed for Red Hat Admin I
 ## 1 - Linux and its history
 1. Linux History
 2. File Architecture
-3. 
 
 ## 2 - Learning the Fundamentals
-1. logging commands
-2. Documentation
-3. Register the system
-4. Managing files
-5. Editing Files
-6. Redirect outputs and inputs
-7. Controlling Access to files and ACL
-8. Accessing Removable Media
-9. Archive and Compress files and directories
+1. Shell
+2. logging commands
+3. Documentation
+4. Register the system
+5. Managing files
+6. Editing Files
+7. Redirect outputs and inputs
+8. Controlling Access to files and ACL
+9. Accessing Removable Media
+10. Archive and Compress files and directories
 
 ## 3 - Manage Users and Groups
 1. sudo
