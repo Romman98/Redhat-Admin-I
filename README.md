@@ -21,11 +21,13 @@ This repo will contain all the material needed for Red Hat Admin I
 2. logging commands
 3. Documentation
 4. Register the system
-5. Managing files
-6. Editing Files
-7. Redirect outputs and inputs
-8. Accessing Removable Media
-9. Archive and Compress files and directories
+5. Managing the Terminal
+6. Paths
+7. Hard and soft links
+8. Reading and editing Files
+9. Redirect outputs and inputs
+10. Accessing Removable Media
+11. Archive and Compress files and directories
 
 ## 3 - Manage Users and Groups
 1. sudo
