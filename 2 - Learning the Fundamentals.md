@@ -496,3 +496,65 @@ Greo command is a very powerful command. One of the options it provides is the a
 | ^ | Matches the beginning of a line | grep "^ahmad" names.txt|
 | $ | Matches the end of a line | grep "romman$" names.txt |
 
+# Redirections
+
+Every linux command takes in an input and results an output and error.
+
+![Redirection](./images/Redirection.png)
+
+## Output redirection
+
+### Standard Output
+
+We can redirect the output of the command (or process) into a file instead of it being printed on the terminal by using the `>` and `>>`.
+
+`>` is used when you want to overwrite the data of the file, and `>>` is used to append the file.
+
+```
+ls -ltr > ls.output
+ls -ltr >> ls.output
+```
+
+### Standard Error
+
+
+To redirect the error, we use `2>` and `2>>`. `2>` is used when you want to overwrite the file and `2>>` when you want to append the file.
+
+```
+ls -ltr file.dne 2> ls.error
+ls -ltr file.dne 2>> ls.error
+```
+## Input Redirection
+
+We can redirect the input by giving the input of a command in an unconventional way
+
+```
+cat < file.txt
+```
+
+### Here Doc
+
+Here document is used to give multiple lines of string as an input
+
+
+```
+cat <<EOF
+Hello There
+Hello Here
+EOF
+```
+
+### Here String
+
+Here string is used to pass a long stream of text
+
+base64 <<< "Very long stream of text"
+
+## Pipeing
+
+Pipe passes the data from the output of a command as an input of another command.
+
+```
+cat error.log | grep "Error" | wc -l
+```
+
