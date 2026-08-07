@@ -194,7 +194,64 @@ man ls
 mv --help
 ```
 
-## Navigate the OS
+## Documentation
+
+Learning every command in linux and memorising each option is basically impossible, and no one expects you to be able to do that. That is why linux terminals contains documentation and help manuals for almost each command.
+
+### Help
+
+Most of the commands take the `--help` option. This options gives you a brief overview of the command and the most common options.
+
+```
+systemctl --help
+grep --help
+```
+
+### Man Pages
+
+If you needed more details about the command and all the options, you can use the `man` command. Each command comes with a manual page on how to use it and its options.
+
+```
+man tar
+man man
+```
+
+The man database sometimes needs to be updated. To do so, run `sudo mandb`.
+
+There types of entries in the manual. Not all entries are terminal commands. Each entry type has a specific number associated with it.
+
+1.   Executable programs or shell commands
+2.   System calls (functions provided by the kernel)
+3.   Library calls (functions within program libraries)
+4.   Special files (usually found in /dev)
+5.   File formats and conventions eg /etc/passwd
+6.   Games
+7.   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
+8.   System administration commands (usually only for root)
+9.   Kernel routines [Non standard]
+
+Some entries can be both a shell command and another entry. For example, mkdir is a shell command (1) and a system call function (2). We can specify which one we need:
+
+```
+man 1 mkdir
+man 2 mkdir
+```
+
+### apropos
+
+you can search the manual to get a command if you don't know it. For example, I want to search for any manual page that contains the world 'director'
+
+```
+apropos director
+```
+
+We can specify that we only need a shell command or a system administrator command.
+
+```
+apropos -s 1,8 director
+```
+
+## Managing the Terminal
 
 Learn how to explore and move through the Linux filesystem efficiently using basic commands. This foundational skill is essential for managing files and directories in the terminal.
 
@@ -287,66 +344,13 @@ There are many ways to create a file, but the most basic way is to use the `touc
 ```
 touch <File>
 touch file.txt
-```
-#### Redirection
-
-Another way to create a file is by using redirection.
-
-You can redirect the output to a file, and if the file does not exist the file will be created. This is called output redirection.
-
-```
-echo "Hello There" > file.txt
-```
-
-This command will create a new file called `file.txt` if not created, and then it will add "Hello There" as a new line.
-
-If we run the same command again, how many lines will we have?\
-only one. Because `>` will overwrite whatever was written on the file.
-
-To append new lines we will use the double redirection `>>`.
-
-```
-echo "Hello There" >> file.txt
-```
-
-If we run the above command, we will have two lines instead of one.
-
-We can perform `error redirection` as well by using `2>`. This will redirect the standard output instead of the standard output.
-
-```
-ls /error 2> error.txt
-ls /error 2>> error.txt
-```
-
-We can also redirect both standard output and standard error using the `&>`.
-
-```
-script &> output.txt
-script &>> output.txt
-```
-`2>&1` sends the standard error stream to the same file as standard output .
-```
-script > output 2>&1 # 
-script >> output 2>&1 
-```
-
-We can also redirect standard input by using the `<`. This will be used when we dicuss more complex commands and start writing scripts.
-
-```
-command < input > output.txt
-```
-
-The pipe `|` character allows you to redirect the output from the previous command as an argument for the next command. You can combine commands using the pipe. Say the output of one command is a large text, you can `more` or `less` the output using the pipe.
-
-```
-cat *.log | less
-```
+``` 
 
 ### find and locate
 
 Not everyone can remember where they created their files, or where are some system files are located, and that is normal. `find` and `locate` commands help us search the system for the files we want.
 
-find command's syntax takes one argument and options. These options tells the command on what to filter. 
+find command's syntax takes one argument and options. These options tells the command on what to filter.
 ```
 -name is used to locate a file based on the name. 
 -type is used to locate a certain type of file.
@@ -465,18 +469,18 @@ more file.txt
 less file.txt
 ```
 
-## Process Text Streams
+### Process Text Streams
 
 Before diving into text streams, let us discuss wildcards. Wildcards enable us to search and filter for file names that matches our condition.
 
-|Wildcard|Description|
-|--------|-----------|
-|*       | one or more characters, or no characters at all|
-|?       | Matches one single character |
-| []     | Range of characters |
+| Wildcard | Description                                     |
+| -------- | ----------------------------------------------- |
+| *        | one or more characters, or no characters at all |
+| ?        | Matches one single character                    |
+| []       | Range of characters                             |
 
 
-## grep
+### grep
 
 `grep` command searches for a text inside a file, and it returns the full line that containts the search term.
 
@@ -486,25 +490,25 @@ grep "Ahmad" names.txt
 
 Greo command is a very powerful command. One of the options it provides is the ability to use `Regular Expressions` in our search.
 
-| Metacharacter | Description | Example |
-|---------------|-------------|---------|
-| .             | Any single character | grep "ahm.d" names.txt |
-| []            | Match any single character that is included in the brackets | grep "ahm[ae]d" names.txt |
-| ? | The preceding item is optional and matched at most once.| grep "ayah?" names.txt # aya or ayah will return |
-| + | The preceding item will be matched one or more times. | grep "j[a-z]+n" names.txt # will match all the names that starts with j and ends with n |
-| * | The preceding item will be matched zero or more times. | grep "jo[a-z]*n" names.txt # will return true on jon |
-| ^ | Matches the beginning of a line | grep "^ahmad" names.txt|
-| $ | Matches the end of a line | grep "romman$" names.txt |
+| Metacharacter | Description                                                 | Example                                                                                 |
+| ------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| .             | Any single character                                        | grep "ahm.d" names.txt                                                                  |
+| []            | Match any single character that is included in the brackets | grep "ahm[ae]d" names.txt                                                               |
+| ?             | The preceding item is optional and matched at most once.    | grep "ayah?" names.txt # aya or ayah will return                                        |
+| +             | The preceding item will be matched one or more times.       | grep "j[a-z]+n" names.txt # will match all the names that starts with j and ends with n |
+| *             | The preceding item will be matched zero or more times.      | grep "jo[a-z]*n" names.txt # will return true on jon                                    |
+| ^             | Matches the beginning of a line                             | grep "^ahmad" names.txt                                                                 |
+| $             | Matches the end of a line                                   | grep "romman$" names.txt                                                                |
 
-# Redirections
+## Redirections
 
 Every linux command takes in an input and results an output and error.
 
 ![Redirection](./images/Redirection.png)
 
-## Output redirection
+### Output redirection
 
-### Standard Output
+#### Standard Output
 
 We can redirect the output of the command (or process) into a file instead of it being printed on the terminal by using the `>` and `>>`.
 
@@ -515,7 +519,7 @@ ls -ltr > ls.output
 ls -ltr >> ls.output
 ```
 
-### Standard Error
+#### Standard Error
 
 
 To redirect the error, we use `2>` and `2>>`. `2>` is used when you want to overwrite the file and `2>>` when you want to append the file.
@@ -524,7 +528,19 @@ To redirect the error, we use `2>` and `2>>`. `2>` is used when you want to over
 ls -ltr file.dne 2> ls.error
 ls -ltr file.dne 2>> ls.error
 ```
-## Input Redirection
+
+We can also redirect both standard output and standard error using the `&>`.
+
+```
+script &> output.txt
+script &>> output.txt
+```
+`2>&1` sends the standard error stream to the same file as standard output .
+```
+script > output 2>&1 # 
+script >> output 2>&1 
+```
+### Input Redirection
 
 We can redirect the input by giving the input of a command in an unconventional way
 
@@ -532,7 +548,7 @@ We can redirect the input by giving the input of a command in an unconventional 
 cat < file.txt
 ```
 
-### Here Doc
+#### Here Doc
 
 Here document is used to give multiple lines of string as an input
 
@@ -544,17 +560,62 @@ Hello Here
 EOF
 ```
 
-### Here String
+#### Here String
 
 Here string is used to pass a long stream of text
 
 base64 <<< "Very long stream of text"
 
-## Pipeing
+### Pipeing
 
-Pipe passes the data from the output of a command as an input of another command.
+The pipe `|` character allows you to redirect the output from the previous command as an argument for the next command. You can combine commands using the pipe. Say the output of one command is a large text, you can `more` or `less` the output using the pipe.
 
 ```
-cat error.log | grep "Error" | wc -l
+cat *.log | less
 ```
 
+
+## Accessing Removable Media
+
+
+## Archive and comporess files and directions
+
+To compress and or archive files in linux, we use the `tar` command. It combines all the files into one big file and compresses them if wanted. The tar command syntax is as
+
+```
+tar [Operation and Options] [Archive Name] [File Names]
+```
+
+### Operations
+
+| Operation     | Description                     |
+| ------------- | ------------------------------- |
+| -c, --create  | To create an archive            |
+| -x, --extract | To extract an archive           |
+| -l, --list    | To list the files in an archive |
+
+### Options
+
+| Option          | Description                  |
+| --------------- | ---------------------------- |
+| -v              | verbose                      |
+| -f archive_name | To specify the archive name  |
+| -C dir          | to extract in a specific dir |
+| -z              | To compress the file as gz   |
+| -j              | To compress the file as bz   |
+
+We mix and combine the operations and options to apply what we need. If you want to archive and extract a group of files
+
+```
+Archive
+tar -cvf archive.tar file1 file2 ...
+
+Extract
+tar -xvf archive.tar
+```
+
+You can also add the compression option to archive and compress
+
+```
+tar -czvf archive.tar.gz file1 file2 file3
+```
