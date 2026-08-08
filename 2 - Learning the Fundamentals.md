@@ -578,7 +578,7 @@ cat *.log | less
 ## Accessing Removable Media
 
 
-## Archive and comporess files and directions
+## Archive and compress files and directions
 
 To compress and or archive files in linux, we use the `tar` command. It combines all the files into one big file and compresses them if wanted. The tar command syntax is as
 
