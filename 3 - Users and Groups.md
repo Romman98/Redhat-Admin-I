@@ -46,7 +46,9 @@ chmod 777 file_name
 
 Directories need `x` permission to be able to cd into them. 
 
-# Users
+# Users and Group Management
+
+## Users
 
 In linux there are 3 types of users.
 
@@ -64,4 +66,48 @@ Regular users are the standard users. They have their own home directories under
 
 ### System
 
-Installed services sometimes are installed with their own user. You don't use it to login, but they are used for these services to interact with the system and to stay isolated. 
+Installed services sometimes are installed with their own user. You don't use it to login, but they are used for these services to interact with the system and to stay isolated.
+
+
+## /etc
+
+In the older days of linux, passwords were saved in `/etc/passwd`. Later, more security concerns were raised and a new architecture was placed.
+
+### /etc/passwd
+
+`/etc/passwd` is still used in RHEL and other distributions. It contains many information about the user.
+
+| Field       | Description                                                                                         |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| User        | This field contains the username                                                                    |
+| Password    | This field used to store information about the password, but now it has been moved to `/etc/shadow` |
+| UID         | The User ID                                                                                         |
+| GID         | The Group ID                                                                                        |
+| User Info   | Optional Description about the user                                                                 |
+| Home Dir    | The home directory of the user. By default it is `/home/username`                                   |
+| Login Shell | The login shell of the user. By default it is `/bin/bash`.                                          |
+
+![](./images/etc_passwd.png)
+
+### /etc/shadow
+
+This file contains more information about the password of each user. There must be an `x` in the password field in `/etc/passwd` for the user to have a record in this file.
+
+| Field                         | Description                                                                   |
+| ----------------------------- | ----------------------------------------------------------------------------- |
+| User                          | This field contains the username                                              |
+| Password                      | The encrypted password                                                        |
+| Date of last password changed | in days after 1970-01-01                                                      |
+| minimum password age          | Number of days that the password must stay before changing it                 |
+| Maximum password age          | Number of days until the password must be changed                             |
+| Password warning period       | Number of days before a warning is given to change the password               |
+| Password inactivity period    | Number of days after password expiration which the password is still accepted |
+| Account expiration date       | Number of days after which the password is expired, since 1970-01-01          |
+| Reserved field                | Reserved field for future use                                                 |
+
+In the password field, $6 means that the password is protected using the 512-bit secure hash algorithm (SHA-512). And a `*` means that this user has no password. You cannot login using this user.
+
+![](./images/etc_shadow.png)
+
+### /etc/group
+
