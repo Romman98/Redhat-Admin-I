@@ -111,3 +111,27 @@ In the password field, $6 means that the password is protected using the 512-bit
 
 ### /etc/group
 
+Every user has a primary group. This is created when the user is created. A user can also have a supllementary group. some groups are special. For example, the `wheel` group allows the user to use the sudo command. 
+
+| Field          | Description                                                              |
+| -------------- | ------------------------------------------------------------------------ |
+| Group Name     | The name of the group                                                    |
+| Group password | Group password. `x` means that there is a record of it in `/etc/gshadow` |
+| Group ID       | Group ID                                                                 |
+| Group Members  | A comma-seperated list of all the memebers of this group.                |
+
+![](./images/etc_group.png)
+
+
+### /etc/gshadow
+
+It is the configuration file of the groups. It has the owner/administrator of each group whhich can add memebrs using `gpasswd`
+
+| Field         | Description                                                                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Group Name    | Group Name                                                                                                        |
+| Password      | If the group has a password, you will find the hashed password. Otherwise, it is just `!` which means no password |
+| Administrator | The administrator of the group who can add and remove members.                                                    |
+| Group Members | A comma-seperated list of all the memebers of this group.                                                         |
+
+![](./images/etc_gshadow.png)
