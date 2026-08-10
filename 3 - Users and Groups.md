@@ -135,3 +135,34 @@ It is the configuration file of the groups. It has the owner/administrator of ea
 | Group Members | A comma-seperated list of all the memebers of this group.                                                         |
 
 ![](./images/etc_gshadow.png)
+
+## Add and Delete Users
+
+To add user in linux we use the `useradd` command
+
+```
+useradd <username>
+```
+
+Options
+
+| Option | Description |
+|--------|-------------|
+| -u UID | Sets a custom UID for the user|
+| -g GID | Sets a custom GID for the user's group |
+| -c description | Sets a description for the user in `/etc/passwd` |
+| -d home_dir | Overrides the default home directory |
+| -e user expiration date | Sets an expiration date for the user |
+| -G group1,group1 | Add the user to an existent group |
+| -s shell | overrifes the default shell for the user |
+
+
+To delete a user, simply run `userdel <username>` but this will keep the home directory. You can add `-r` to delete the home directory as well.
+
+```
+userdel -r username
+```
+
+## Add and Deletes Groups
+
+You can create groups other than the one created by default. It is recommended to assign it a GID different 
