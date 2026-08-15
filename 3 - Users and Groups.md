@@ -125,7 +125,7 @@ Every user has a primary group. This is created when the user is created. A user
 
 ### /etc/gshadow
 
-It is the configuration file of the groups. It has the owner/administrator of each group whhich can add memebrs using `gpasswd`
+It is the configuration file of the groups. It has the owner/administrator of each group whhich can add memebrs using `gpasswd` 
 
 | Field         | Description                                                                                                       |
 | ------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -146,15 +146,15 @@ useradd <username>
 
 Options
 
-| Option | Description |
-|--------|-------------|
-| -u UID | Sets a custom UID for the user|
-| -g GID | Sets a custom GID for the user's group |
-| -c description | Sets a description for the user in `/etc/passwd` |
-| -d home_dir | Overrides the default home directory |
-| -e user expiration date | Sets an expiration date for the user |
-| -G group1,group1 | Add the user to an existent group |
-| -s shell | overrifes the default shell for the user |
+| Option                  | Description                                      |
+| ----------------------- | ------------------------------------------------ |
+| -u UID                  | Sets a custom UID for the user                   |
+| -g GID                  | Sets a custom GID for the user's group           |
+| -c description          | Sets a description for the user in `/etc/passwd` |
+| -d home_dir             | Overrides the default home directory             |
+| -e user expiration date | Sets an expiration date for the user             |
+| -G group1,group1        | Add the user to an existent group                |
+| -s shell                | overrifes the default shell for the user         |
 
 
 To delete a user, simply run `userdel <username>` but this will keep the home directory. You can add `-r` to delete the home directory as well.
@@ -166,3 +166,50 @@ userdel -r username
 ## Add and Deletes Groups
 
 You can create groups other than the one created by default. It is recommended to assign it a GID different 
+
+## Modifying Accounts
+
+`usermod`, `groupmod`, `chage`
+
+### usermod
+
+Allows you to change the settings in `/etc/passwd` and `/etc/shadow`
+
+- Append users to existing groups
+- Rename the user
+- Lock and unlock password 
+
+`usermod` also supports all the options that are available for `useradd`.
+
+note: When a user is locked a `!` appears in `/etc/shadow`
+
+### groupmod
+
+The command `groupmod` supports only two use cases:
+
+1- It is used to change the GID
+
+```
+groupmod -g <GID> <group>
+```
+
+2- Changing thhe group name
+
+```
+groupmod -n <new_name> <old_name>
+```
+
+### chage
+
+This command is used to manage aging information for the password.
+
+| Option        | Description                                                                           |
+| ------------- | ------------------------------------------------------------------------------------- |
+| -d YYYY-MM-DD | Sets the last change date for the password                                            |
+| -E YYYY-MM-DD | Assigns expiration date for an account                                                |
+| -I `x`        | Locks an account `x` amount of days after a password has expired                      |
+| -l            | Lists all age information                                                             |
+| -m `x`        | minimum days that a user must keep a password                                         |
+| -M `x`        | Sets the max days that a user is allowed to keep the password. -1 means never expired |
+| -W `x`        | Days a user is warned to change their password.                                       |
+
